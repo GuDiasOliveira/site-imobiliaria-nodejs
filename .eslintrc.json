@@ -1,0 +1,7 @@
+{
+    "plugins": [
+        "html",
+        "css-modules",
+        "vue"
+    ]
+}

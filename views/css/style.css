@@ -1,0 +1,17 @@
+.page-header {
+    height: 300px;
+    background-image: url('/images/imobiliaria.jpeg');
+    background-size: cover;
+    background-position-y: center;
+}
+
+#page-title {
+    vertical-align: bottom;
+    margin-top: 130px;
+    color: #ffffff;
+    font-weight: 800;
+    font-style: italic;
+    font-size: 80px;
+    -webkit-text-stroke-color: #000000;
+    -webkit-text-stroke-width: 2px;
+}
