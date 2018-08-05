@@ -1,3 +1,7 @@
+body {
+    background-color: #eeeeee;
+}
+
 .page-header {
     height: 300px;
     background-image: url('/images/imobiliaria.jpeg');
@@ -11,7 +15,56 @@
     color: #ffffff;
     font-weight: 800;
     font-style: italic;
-    font-size: 80px;
+    font-size: 60px;
     -webkit-text-stroke-color: #000000;
     -webkit-text-stroke-width: 2px;
+}
+
+.property-listing {
+    max-width: 1400px;
+}
+
+.property-item {
+    width: 350px;
+    margin: 10px;
+    padding: 5px;
+    background-color: #ffffff;
+    border-style: solid;
+    border-width: 1px;
+    border-color: #cccccc;
+}
+
+.property-item .property-thumb {
+    width: 100%;
+    height: 200px;
+}
+
+.property-item .property-type {
+    font-size: 20px;
+    color: red;
+}
+
+.property-item .property-price {
+    font-size: 27px;
+    font-weight: bold;
+    color: #0c007c;
+}
+
+.property-item .property-totalArea,
+.property-item .property-usefulArea,
+.property-item .property-rooms {
+    padding-right: 20px;
+    font-style: italic;
+}
+
+.property-item .property-id {
+    float: right;
+    color: gray;
+    font-size: 12px;
+}
+
+@media only screen and (max-width: 700px) {
+    .property-item .property-thumb {
+        height: 100px;
+    }
 }
