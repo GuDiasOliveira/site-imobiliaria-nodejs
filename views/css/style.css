@@ -7,6 +7,7 @@ body {
     background-image: url('/images/imobiliaria.jpeg');
     background-size: cover;
     background-position-y: center;
+    border-radius: 0;
 }
 
 #page-title {
@@ -62,6 +63,41 @@ body {
     color: gray;
     font-size: 12px;
 }
+
+.footer {
+    height: 200px;
+    padding: 20px;
+    background-color: #c5e0ff;
+}
+
+.footer > div:not(:last-child) {
+    margin-right: 10%;
+}
+
+.col-separator {
+    padding: 0;
+    margin: 10px 10px;
+    width: 1px;
+    background-color: gray;
+}
+
+.social-network-links {
+    margin-top: 20px;
+}
+
+.social-network-links a {
+    padding: 10px;
+    border-style: solid;
+    border-color: #000000;
+    border-width: 1px;
+    border-radius: 5px;
+    margin: 0 7px;
+}
+
+.social-network-links a:hover {
+    background-color: #ffffff;
+}
+
 
 @media only screen and (max-width: 700px) {
     .property-item .property-thumb {
