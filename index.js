@@ -1,21 +1,10 @@
+require('dotenv').config();
 var express = require('express');
 var path = require('path');
 
 var app = express();
 
-/*
-var testData = {
-    "school": "Escola técnica do Norte do Paraná",
-    "school_code": 12345999,
-    "course": "Informática",
-    "students": [
-        {"name": "Gustavo Dias", "code": 1338374},
-        {"name": "Paulo Lacerda", "code": 122432},
-        {"name": "Laíza Beatriz", "code": 445509},
-        {"name": "Maria Letícia", "code": 12312}
-    ]
-}
-*/
+
 var testData = [
     {
         "propertyId": 1,
