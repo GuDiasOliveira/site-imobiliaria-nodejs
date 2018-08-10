@@ -67,8 +67,22 @@ app.get('/', function (req, res) {
 
 app.use('/api', require('./api/api'));
 
+// For testing 500 Internal Server errors
+// app.get('/erro500', function (req, res) {
+//     // Let's force an 500 error
+//     var teste = ['teste'];
+//     res.send(teste[1].foo());
+// });
+
+// Handle 404 Not Found
 app.use(function (req, res, next) {
-    res.status(404).type('html').send('<h1>Erro 404. Esta página não existe!</h1>');
+    res.status(404).sendFile(path.resolve('views/error-pages/404.html'));
+});
+
+// Handle Server errors
+app.use(function (err, req, res, next) {
+    console.error(err.stack);
+    res.status(err.status || 500).type('html').send('<h1>Erro no servidor!</h1>');
 });
 
 app.listen(3000, function() {
