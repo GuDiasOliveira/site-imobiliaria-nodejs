@@ -50,7 +50,7 @@ var testData = [
         "rooms": 10,
         "thumbUrl": "http://2.bp.blogspot.com/-dk06RydWhhI/UbUIaGouuhI/AAAAAAAAADE/NeDVi02aTXI/s1600/CAPA%2BBLOG%2Bcopy%2B%255B%255D.jpg"
     }
-]
+];
 
 app.get('/teste', function(req, res) {
     res.header('Content-Type', 'text/json');
@@ -63,6 +63,12 @@ app.use('/images', express.static('views/images'));
 
 app.get('/', function (req, res) {
     res.sendFile(path.resolve('views/main.html'));
+});
+
+app.use('/api', require('./api/api'));
+
+app.use(function (req, res, next) {
+    res.status(404).type('html').send('<h1>Erro 404. Esta página não existe!</h1>');
 });
 
 app.listen(3000, function() {

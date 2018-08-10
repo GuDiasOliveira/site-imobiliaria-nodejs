@@ -8,7 +8,7 @@ var up = sqlb.build({
             // fields
             property_id: { $column: { $type: 'INT', $autoInc: true } },
             name: { $column: { $type: 'VARCHAR', $length: 300 } },
-            ciry_state: { $column: { $type: 'VARCHAR', $length: 400 } },
+            city_state: { $column: { $type: 'VARCHAR', $length: 400 } },
             type: { $column: { $type: 'VARCHAR', $length: 50 } },
             price: { $column: { $type: 'DECIMAL(20,2)', $notNull: true } },
             total_area: { $column: { $type: 'INT' } },

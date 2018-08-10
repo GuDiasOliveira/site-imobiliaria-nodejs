@@ -14,7 +14,7 @@ gulp.task('env-vars-file', function () {
 
 
 gulp.task('test-db-connection', function () {
-    var dbConn = require('./db/connection');
+    var dbConn = require('./db/connection')();
     dbConn.connect(function(err) {
         if (err) throw err;
         console.log("Connection successful!");
