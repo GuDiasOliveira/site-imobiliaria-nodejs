@@ -1,3 +1,4 @@
+var utils = require.main.require('./utils');
 var express = require('express');
 var router = express.Router();
 
@@ -6,6 +7,16 @@ router.use(bodyParser.urlencoded({ extended: true }));
 router.use(bodyParser.json());
 
 var Property = require('../models/property');
+
+
+function adaptData(property) {
+    if (utils.objIsEmpty(property)) {
+        return property;
+    }
+    property.thumb_url = utils.url('/media/imoveis-thumb/' + property.image_thumb_file);
+    property.image_thumb_file = undefined;
+    return property;
+}
 
 
 router.get('/:propertyId', function(req, res) {
@@ -25,7 +36,7 @@ router.get('/:propertyId', function(req, res) {
         var propertyId = +req.params.propertyId;
         property.get(propertyId, function(result) {
             if (result != null) {
-                res.status(200).json(result);
+                res.status(200).json(adaptData(result));
             } else {
                 res.status(500).json({'error': 'Failed retrieve the property.'});
             }

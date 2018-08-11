@@ -45,7 +45,7 @@ Property.prototype.get = function(propertyId, callbackResult) {
             console.error(err);
             callbackResult(null);
         } else {
-            callbackResult(result);
+            callbackResult(result.length > 0 ? result[0] : {});
         }
     });
 };

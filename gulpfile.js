@@ -1,6 +1,7 @@
 require('dotenv').config();
 var gulp = require('gulp');
 var fs = require('fs');
+var utils = require('./utils');
 
 
 gulp.task('env-vars-file', function () {
@@ -20,4 +21,11 @@ gulp.task('test-db-connection', function () {
         console.log("Connection successful!");
     });
     dbConn.end();
+});
+
+
+gulp.task('test-base-url', function () {
+    console.log('Base Url: ' + process.env.BASE_URL);
+    console.log(utils.url('path/to/somewhere.html?q=foo&id=22'));
+    console.log(utils.url('/my/path/'));
 });
