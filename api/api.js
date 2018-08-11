@@ -15,7 +15,7 @@ consign({ cwd: __dirname })
     .into(controllers);
 
 for (var controller in controllers.controllers) {
-    router.use('/' + controller, controllers.controllers[controller][0]);
+    router.use('/' + controller, controllers.controllers[controller]);
 }
 
 // For testing 500 Internal Server errors
