@@ -82,7 +82,7 @@ app.use(function (req, res, next) {
 // Handle Server errors
 app.use(function (err, req, res, next) {
     console.error(err.stack);
-    res.status(err.status || 500).type('html').send('<h1>Erro no servidor!</h1>');
+    res.status(err.status || 500).sendFile(path.resolve('views/error-pages/5xx.html'));
 });
 
 app.listen(3000, function() {
