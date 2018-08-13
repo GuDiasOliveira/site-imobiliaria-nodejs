@@ -10,7 +10,16 @@ var Property = function(connectionCallback) {
 
 
 Property.prototype.insert = function(property, callback) {
+    property.property_id = undefined;
     var sql = "INSERT INTO property SET ?";
+    this.con.query(sql, property, function(err, result) {
+        callback(err);
+    });
+};
+
+
+Property.prototype.update = function(property, callback) {
+    var sql = "UPDATE TABLE property SET ?";
     this.con.query(sql, property, function(err, result) {
         callback(err);
     });

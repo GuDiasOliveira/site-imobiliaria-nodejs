@@ -1,9 +1,11 @@
 
 
-var apiResponseData = function(data, error) {
+var apiResponseData = function(data, error, success) {
     if (error == undefined)
         error = null;
-    return { 'error': error, 'data': data };
+    if (success == undefined)
+        success = !error;
+    return { 'error': error, 'data': data, 'success': success };
 };
 
 

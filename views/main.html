@@ -90,8 +90,8 @@
     </script>
     <script>
         $(document).ready(function () {
-            $.get('/teste', function (data, status) {
-                app.properties = data;
+            $.get('/api/property/', function (result, status) {
+                app.properties = result.data;
             });
         });
     </script>
