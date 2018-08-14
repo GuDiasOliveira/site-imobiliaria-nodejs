@@ -28,22 +28,30 @@
         <header class="jumbotron page-header">
             <h1 class="text-center" id="page-title">Minha imobiliária do Gustavo Dias</h1>
         </header>
-        <main role="main">
-            <div class="property-listing container d-flex flex-row flex-wrap justify-content-center">
-                <div class="property-item rounded" v-for="property in properties">
-                    <img class="property-thumb rounded" v-bind:src="property.thumb_url" v-bind:alt="property.name" />
-                    <div class="property-state-city">{{property.city_state}}</div>
-                    <div class="property-type">{{property.type}}</div>
-                    <div class="property-price">R$ {{property.price.toBrazilCurrency()}}</div>
-                    <div class="d-flex flex-row">
-                        <div class="property-totalArea">{{property.total_area}} m² total</div>
-                        <div class="property-usefulArea">{{property.useful_area}} m² útil</div>
-                        <div class="property-rooms">{{property.rooms}} {{property.rooms == 1 ? 'quarto' : 'quartos'}}</div>
+        <div class="main-content container">
+            <main role="main">
+                <div class="property-listing container d-flex flex-row flex-wrap justify-content-center">
+                    <div class="property-item rounded" v-for="property in properties">
+                        <h4 class="property-name text-center font-weight-bold font-italic">{{property.name}}</h4>
+                        <img class="property-thumb rounded" v-bind:src="property.thumb_url" v-bind:alt="property.name" />
+                        <div class="property-state-city">{{property.city_state}}</div>
+                        <div class="property-type">{{property.type}}</div>
+                        <div class="property-price">R$ {{property.price.toBrazilCurrency()}}</div>
+                        <div class="d-flex flex-row">
+                            <div class="property-totalArea">{{property.total_area}} m² total</div>
+                            <div class="property-usefulArea">{{property.useful_area}} m² útil</div>
+                            <div class="property-rooms">{{property.rooms}} {{property.rooms == 1 ? 'quarto' : 'quartos'}}</div>
+                        </div>
+                        <div class="property-id">Ref: {{property.property_id}}</div>
                     </div>
-                    <div class="property-id">Ref: {{property.property_id}}</div>
                 </div>
-            </div>
-        </main>
+            </main>
+            <div class="row-separator"></div>
+            <aside class="aside d-flex flex-row flex-wrap justify-content-center">
+                <iframe class="map-where-are-we border" src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3663.8838345846757!2d-51.155853348952185!3d-23.31997318472867!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x94eb4368a9ff58fd%3A0x5ce3c5e097f3bd1!2sAv.+Juscelino+Kubitscheck%2C+3600+-+Larsen%2C+Londrina+-+PR%2C+86010-000!5e0!3m2!1spt-BR!2sbr!4v1534171673135" width="400" height="300" frameborder="0" style="border:0" allowfullscreen></iframe>
+                <iframe class="fb-page" src="https://www.facebook.com/plugins/page.php?href=https%3A%2F%2Fwww.facebook.com%2FImobiliariaPrius%2F&tabs&width=340&height=214&small_header=false&adapt_container_width=true&hide_cover=false&show_facepile=true&appId=2032663950378037" width="340" height="214" style="border:none;overflow:hidden" scrolling="no" frameborder="0" allowTransparency="true" allow="encrypted-media"></iframe>
+            </aside>
+        </div>
         <footer class="footer row justify-content-center">
             <div class="real-state-address">
                 <h3>Onde estamos?</h3>
