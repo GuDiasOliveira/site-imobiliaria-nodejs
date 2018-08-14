@@ -21,8 +21,21 @@ body {
     -webkit-text-stroke-width: 2px;
 }
 
+.main {
+    min-height: 500px;
+    position: relative;
+}
+
 .property-listing {
     max-width: 1400px;
+}
+
+.property-empty {
+    margin: 0;
+    padding: 30px;
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
 }
 
 .property-item {

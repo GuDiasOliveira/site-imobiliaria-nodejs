@@ -29,8 +29,8 @@
             <h1 class="text-center" id="page-title">Minha imobiliária do Gustavo Dias</h1>
         </header>
         <div class="main-content container">
-            <main role="main">
-                <div class="property-listing container d-flex flex-row flex-wrap justify-content-center">
+            <main role="main" class="main">
+                <div class="property-listing container d-flex flex-row flex-wrap justify-content-center" v-if="properties.length > 0">
                     <div class="property-item rounded" v-for="property in properties">
                         <h4 class="property-name text-center font-weight-bold font-italic">{{property.name}}</h4>
                         <img class="property-thumb rounded" v-bind:src="property.thumb_url" v-bind:alt="property.name" />
@@ -44,6 +44,9 @@
                         </div>
                         <div class="property-id">Ref: {{property.property_id}}</div>
                     </div>
+                </div>
+                <div class="property-empty container alert-danger text-center" v-else>
+                    <h3>Não há imóveis cadastrados</h3>
                 </div>
             </main>
             <div class="row-separator"></div>
