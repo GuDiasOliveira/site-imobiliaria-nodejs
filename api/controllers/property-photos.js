@@ -60,7 +60,12 @@ router.post('/:propertyId', function (req, res) {
                             callback(null, filename);
                         }
                     });
-                    var propertyPhotosUpload = multer({storage: storage});
+                    var propertyPhotosUpload = multer({
+                        storage: storage,
+                        fileFilter: function (req, file, callback) {
+                            callback(null, file.mimetype == 'image/png' || file.mimetype == 'image/jpeg');
+                        }
+                    });
                     utils.dirToSave(path.join('/media/imoveis-fotos/', String(propertyId)), function(dirErr) {
                         propertyPhotosUpload.array('photos')(req, res, function (filesUploadErr) {
                             if (filesUploadErr) {
@@ -79,7 +84,7 @@ router.post('/:propertyId', function (req, res) {
                 }
             } else {
                 // In case of fail to get whether exists a property with given id
-                res.status(500).json(utils.apiResponseData(undefined, 'Failed retrieve the property.'));
+                res.status(500).json(utils.apiResponseData(undefined, 'Failed retrieve the property for which the photos would be posted.'));
             }
         });
     });
