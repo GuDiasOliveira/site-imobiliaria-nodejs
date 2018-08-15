@@ -60,6 +60,19 @@ Property.prototype.get = function(propertyId, callbackResult) {
 };
 
 
+Property.prototype.exists = function(propertyId, callbackResult) {
+    var sql = "SELECT COUNT(*) as prop_count FROM property WHERE property_id = ?";
+    this.con.query(sql, [propertyId], function(err, result) {
+        if (err) {
+            console.error(err);
+            callbackResult(null);
+        } else {
+            callbackResult(result[0].prop_count > 0);
+        }
+    });
+};
+
+
 Property.prototype.end = function() {
     this.con.end();
 };

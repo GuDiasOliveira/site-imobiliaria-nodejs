@@ -57,6 +57,10 @@ var app = express();
 //     res.json(testData);
 // });
 
+app.get('/teste-upload-property-photos', function (req, res) {
+    res.sendFile(path.resolve('test/test-upload-property-photos.html'));
+});
+
 app.use('/css', express.static('views/css'));
 app.use('/js', express.static('views/js'));
 app.use('/images', express.static('views/images'));
