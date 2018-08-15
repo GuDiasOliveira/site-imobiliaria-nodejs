@@ -21,8 +21,7 @@ for (var controller in controllers.controllers) {
 // For testing 500 Internal Server errors
 // router.get('/error500', function (req, res) {
 //     // Let's force an 500 error
-//     var teste = ['teste'];
-//     res.send(teste[1].foo());
+//     throw 'Erro de teste';
 // });
 
 // Handle 404 Not Found

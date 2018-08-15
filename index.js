@@ -67,17 +67,11 @@ app.use('/images', express.static('views/images'));
 app.use('/media', express.static('media'));
 
 app.get('/', function (req, res) {
+    //throw 'Erro de teste'; // For 500 error testing
     res.sendFile(path.resolve('views/main.html'));
 });
 
 app.use('/api', require('./api/api'));
-
-// For testing 500 Internal Server errors
-// app.get('/erro500', function (req, res) {
-//     // Let's force an 500 error
-//     var teste = ['teste'];
-//     res.send(teste[1].foo());
-// });
 
 // Handle 404 Not Found
 app.use(function (req, res, next) {
