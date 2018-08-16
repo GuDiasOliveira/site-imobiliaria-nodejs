@@ -10,6 +10,7 @@ router.use(bodyParser.json());
 var dateFormat = require('dateformat');
 var sleep = require('sleep');
 var multer  = require('multer');
+var fs = require('fs');
 
 var Property = require('../models/property');
 
@@ -17,6 +18,22 @@ var Property = require('../models/property');
 Date.prototype.toPropertyPhotoTimestamp = function() {
     return dateFormat(new Date(), 'yyyy_mm_dd__HH_MM_ss_l');
 };
+
+
+router.get('/:propertyId', function (req, res) {
+    if (!req.params.propertyId.match(/^([1-9][0-9]*|0)$/)) {
+        res.status(400).json(utils.apiResponseData(undefined, 'The propertyId must be a positive integer.')).end();
+        return;
+    }
+
+    var photosPath = path.join(process.cwd(), '/media/imoveis-fotos/', req.params.propertyId);
+    if (fs.existsSync(photosPath)) {
+        var photoFiles = fs.readdirSync(photosPath);
+        res.status(200).json(utils.apiResponseData(photoFiles));
+    } else {
+        res.status(404).json(utils.apiResponseData([]));
+    }
+});
 
 
 router.post('/:propertyId', function (req, res) {

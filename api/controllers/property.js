@@ -1,5 +1,6 @@
 var utils = require.main.require('./utils');
 var path = require('path');
+var request = require('request');
 var express = require('express');
 var router = express.Router();
 
@@ -40,11 +41,33 @@ router.get('/:propertyId', function(req, res) {
         var propertyId = +req.params.propertyId;
         property.get(propertyId, function(result) {
             if (result != null) {
-                res.status(200).json(utils.apiResponseData(adaptData(result)));
+                // Success retrieve property from database
+                var apiRes = adaptData(result);
+                // Now loading the property's photos
+                request(utils.url('/api/property-photos/' + propertyId), function (error, response, body) {
+                    if (error) {
+                        if (apiRes.data != undefined && utils.objIsEmpty(apiRes.data)) {
+                            // No such property with given id
+                            res.status(404).json(utils.apiResponseData(apiRes));
+                        } else {
+                            // Failed do retrieve property's photos
+                            console.error(error);
+                            apiRes.photos = null;
+                            res.status(207).json(utils.apiResponseData(apiRes));
+                        }
+                    } else {
+                        // Success retrieving property's photos
+                        // Returning the all-succeeded property's data
+                        apiRes.photos = JSON.parse(body).data.map(function (val, i, arr) {
+                            return utils.url(path.join('/media/imoveis-fotos/', String(propertyId), val));
+                        });
+                        res.status(200).json(utils.apiResponseData(apiRes));
+                    }
+                });
+                
             } else {
                 res.status(500).json(utils.apiResponseData(undefined, 'Failed retrieve the property.'));
             }
-            res.end();
             property.end();
         });
     });
