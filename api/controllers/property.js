@@ -46,22 +46,27 @@ router.get('/:propertyId', function(req, res) {
                 // Now loading the property's photos
                 request(utils.url('/api/property-photos/' + propertyId), function (error, response, body) {
                     if (error) {
-                        if (apiRes.data != undefined && utils.objIsEmpty(apiRes.data)) {
-                            // No such property with given id
-                            res.status(404).json(utils.apiResponseData(apiRes));
-                        } else {
-                            // Failed do retrieve property's photos
-                            console.error(error);
-                            apiRes.photos = null;
-                            res.status(207).json(utils.apiResponseData(apiRes));
-                        }
+                        // Failed to retrieve property's photos
+                        console.error(error);
+                        apiRes.photos = null;
+                        res.status(207).json(utils.apiResponseData(apiRes));
+                    } else if (utils.objIsEmpty(apiRes)) {
+                        // No such property with given id
+                        res.status(404).json(utils.apiResponseData(apiRes));
                     } else {
                         // Success retrieving property's photos
                         // Returning the all-succeeded property's data
-                        apiRes.photos = JSON.parse(body).data.map(function (val, i, arr) {
-                            return utils.url(path.join('/media/imoveis-fotos/', String(propertyId), val));
-                        });
-                        res.status(200).json(utils.apiResponseData(apiRes));
+                        var photos = JSON.parse(body).data;
+                        if (photos != undefined) {
+                            apiRes.photos = photos.map(function (val, i, arr) {
+                                return utils.url(path.join('/media/imoveis-fotos/', String(propertyId), val));
+                            });
+                            res.status(200).json(utils.apiResponseData(apiRes));
+                        } else {
+                            // Something went wrong on retrieving property's photos
+                            apiRes.photos = null;
+                            res.status(207).json(utils.apiResponseData(apiRes));
+                        }
                     }
                 });
                 
