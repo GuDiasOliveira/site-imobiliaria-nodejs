@@ -30,24 +30,7 @@
         </header>
         <div class="main-content container">
             <main role="main" class="main">
-                <div class="property-listing container d-flex flex-row flex-wrap justify-content-center" v-if="properties.length > 0">
-                    <div class="property-item rounded" v-for="property in properties">
-                        <h4 class="property-name text-center font-weight-bold font-italic">{{property.name}}</h4>
-                        <img class="property-thumb rounded" v-bind:src="property.thumb_url" v-bind:alt="property.name" />
-                        <div class="property-state-city">{{property.city_state}}</div>
-                        <div class="property-type">{{property.type}}</div>
-                        <div class="property-price">R$ {{property.price.toBrazilCurrency()}}</div>
-                        <div class="d-flex flex-row">
-                            <div class="property-totalArea">{{property.total_area}} m² total</div>
-                            <div class="property-usefulArea">{{property.useful_area}} m² útil</div>
-                            <div class="property-rooms">{{property.rooms}} {{property.rooms == 1 ? 'quarto' : 'quartos'}}</div>
-                        </div>
-                        <div class="property-id">Ref: {{property.property_id}}</div>
-                    </div>
-                </div>
-                <div class="property-empty container alert-danger text-center" v-else>
-                    <h3>Não há imóveis cadastrados</h3>
-                </div>
+                <%- pageContent %>
             </main>
             <div class="row-separator"></div>
             <aside class="aside d-flex flex-row flex-wrap justify-content-center">

@@ -3,5 +3,8 @@
         "html",
         "css-modules",
         "vue"
-    ]
+    ],
+    "rules": {
+        "no-unused-vars": ["warn", { "args": "none" }]
+    }
 }
