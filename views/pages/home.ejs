@@ -1,4 +1,11 @@
 <%- contentFor('pageContent') %>
+
+<script>
+    appData = {
+        properties: []
+    };
+</script>
+
 <div class="property-listing container d-flex flex-row flex-wrap justify-content-center" v-if="properties.length > 0">
     <div class="property-item rounded" v-for="property in properties">
         <h4 class="property-name text-center font-weight-bold font-italic">{{property.name}}</h4>
@@ -17,3 +24,11 @@
 <div class="property-empty container alert-danger text-center" v-else>
     <h3>Não há imóveis cadastrados</h3>
 </div>
+
+<script>
+    $(document).ready(function () {
+        $.get('/api/property/', function (result, status) {
+            appData.properties = result.data;
+        });
+    });
+</script>
