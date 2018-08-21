@@ -27,13 +27,20 @@
         <div class="property-usefulArea">{{property.useful_area}} m² útil</div>
         <div class="property-rooms">{{property.rooms}} {{property.rooms == 1 ? 'quarto' : 'quartos'}}</div>
     </div>
-    <div class="property-photos-gallery">
+    <div class="property-photos-gallery" v-if="property.photos.length > 0">
         <img v-for="photo in property.photos" v-bind:src="photo" />
+    </div>
+    <div class="property-photos-empty alert alert-secondary" v-else>
+        <div>
+            Este imóvel não tem fotos
+        </div>
     </div>
     <script>
     vue.updated = function() {
-        Galleria.loadTheme('/js/galleria.classic.js');
-        Galleria.run('.property-photos-gallery');
+        if (vue.data.property.photos.length > 0) {
+            Galleria.loadTheme('/js/galleria.classic.js');
+            Galleria.run('.property-photos-gallery');
+        }
     };
     </script>
 </div>
