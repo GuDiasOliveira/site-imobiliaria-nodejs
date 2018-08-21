@@ -32,6 +32,10 @@ app.get('/property/:propertyId', function (req, res, next) {
     res.render('pages/property', {propertyId: req.params.propertyId});
 });
 
+app.get('/test/photo-gallery', function (req, res) {
+    res.sendFile(path.resolve('test/photo-gallery-test.html'));
+});
+
 // Handle 404 Not Found
 app.use(function (req, res, next) {
     res.status(404).sendFile(path.resolve('views/error-pages/404.html'));
