@@ -1,2 +1,40 @@
 <%- contentFor('pageContent') %>
-<h2>Olá imóvel <%= propertyId %></h2>
+
+<script>
+    vue.data = {
+        loaded: false,
+        property: {}
+    };
+</script>
+
+<div v-if="loaded">
+    <h2>Detalhes do imóvel</h2>
+    <h3 class="property-name">{{property.name}}</h3>
+    <h3 class="property-state-city">{{property.city_state}}</h3>
+    <h3 class="property-price">R$ {{property.price.toBrazilCurrency()}}</h3>
+    <div class="d-flex flex-row">
+        <div class="property-totalArea">{{property.total_area}} m² total</div>
+        <div class="property-usefulArea">{{property.useful_area}} m² útil</div>
+        <div class="property-rooms">{{property.rooms}} {{property.rooms == 1 ? 'quarto' : 'quartos'}}</div>
+    </div>
+    <div class="property-photos-gallery">
+        <img v-for="photo in property.photos" v-bind:src="photo" />
+    </div>
+    <script>
+    vue.updated = function() {
+        Galleria.loadTheme('/js/galleria.classic.js');
+        Galleria.run('.property-photos-gallery');
+    };
+    </script>
+</div>
+<div v-else>
+    <h2>Carregando...</h2>
+</div>
+<script>
+    $(document).ready(function () {
+        $.get('/api/property/<%= propertyId %>', function (result, status) {
+            vue.data.property = result.data;
+            vue.data.loaded = true;
+        });
+    });
+</script>

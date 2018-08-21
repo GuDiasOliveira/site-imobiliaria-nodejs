@@ -29,7 +29,16 @@ app.get('/property/:propertyId', function (req, res, next) {
         next();
         return;
     }
-    res.render('pages/property', {propertyId: req.params.propertyId});
+    res.render('pages/property', {
+        cssLoads: [
+            '/css/galleria.classic.css',
+            '/css/style.property.css'
+        ],
+        jsLoads: [
+            '/js/galleria.js'
+        ],
+        propertyId: req.params.propertyId
+    });
 });
 
 app.get('/test/photo-gallery', function (req, res) {

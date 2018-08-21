@@ -1,3 +1,9 @@
+<%
+if (typeof cssLoads == "undefined")
+    cssLoads = [];
+if (typeof jsLoads == "undefined")
+    jsLoads = [];
+%>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -8,15 +14,24 @@
 
     <link rel="stylesheet" href="/css/bootstrap/bootstrap.min.css">
     <link rel="stylesheet" href="/css/style.css">
+    <% for (var i in cssLoads) { %>
+        <link rel="stylesheet" href="<%= cssLoads[i] %>">
+    <% } %>
 
     <script src="/js/bootstrap/bootstrap.min.js"></script>
     <script src="/js/vue.js"></script>
     <script src="/js/jquery.js"></script>
+    <% for (var i in jsLoads) { %>
+        <script src="<%= jsLoads[i] %>"></script>
+    <% } %>
 
     <script>
         Number.prototype.toBrazilCurrency = function () {
             return this.toFixed(2).replace(/(\d)(?=(\d{3})+(?!\d))/g, "$1.").replace(/\.(\d{2})$/g, ',$1');
         }
+        vue = {
+            el: '#page-content',
+        };
     </script>
 
     <title>Imobiliária do Gustavo Dias</title>
@@ -75,10 +90,7 @@
 
     <!-- Vue app -->
     <script>
-        var app = new Vue({
-            el: '#page-content',
-            data: appData,
-        });
+        app = new Vue(vue);
     </script>
     
 </body>

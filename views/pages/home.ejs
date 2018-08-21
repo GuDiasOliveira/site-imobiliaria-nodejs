@@ -1,7 +1,7 @@
 <%- contentFor('pageContent') %>
 
 <script>
-    appData = {
+    vue.data = {
         properties: []
     };
 </script>
@@ -28,7 +28,7 @@
 <script>
     $(document).ready(function () {
         $.get('/api/property/', function (result, status) {
-            appData.properties = result.data;
+            vue.data.properties = result.data;
         });
     });
 </script>
