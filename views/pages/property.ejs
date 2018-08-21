@@ -7,12 +7,22 @@
     };
 </script>
 
-<div v-if="loaded">
-    <h2>Detalhes do imóvel</h2>
-    <h3 class="property-name">{{property.name}}</h3>
-    <h3 class="property-state-city">{{property.city_state}}</h3>
-    <h3 class="property-price">R$ {{property.price.toBrazilCurrency()}}</h3>
-    <div class="d-flex flex-row">
+<div v-if="loaded" class="container property">
+    <h2 class="alert alert-heading">
+        <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 8 8">
+            <path d="M4 0l-4 3h1v4h2v-2h2v2h2v-4.03l1 .03-4-3z" fill="#0061ff" />
+        </svg>
+        <span style="margin-left: 20px">Detalhes do imóvel</span>
+    </h2>
+    <h3 class="property-name text-center font-weight-bold font-italic">{{property.name}}</h3>
+    <div class="alert alert-info d-flex">
+        <div class="flex-fill">
+            <div class="property-state-city text-primary">{{property.city_state}}</div>
+            <div class="property-type text-danger">{{property.type}}</div>
+        </div>
+        <div class="property-price text-info">R$ {{property.price.toBrazilCurrency()}}</div>
+    </div>
+    <div class="d-flex flex-row justify-content-center">
         <div class="property-totalArea">{{property.total_area}} m² total</div>
         <div class="property-usefulArea">{{property.useful_area}} m² útil</div>
         <div class="property-rooms">{{property.rooms}} {{property.rooms == 1 ? 'quarto' : 'quartos'}}</div>
@@ -30,6 +40,7 @@
 <div v-else>
     <h2>Carregando...</h2>
 </div>
+
 <script>
     $(document).ready(function () {
         $.get('/api/property/<%= propertyId %>', function (result, status) {
