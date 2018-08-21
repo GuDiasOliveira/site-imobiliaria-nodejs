@@ -103,6 +103,32 @@ router.get('/', function(req, res) {
 });
 
 
+router.get('/exists/:propertyId', function(req, res) {
+    if (!req.params.propertyId.match(/^([1-9][0-9]*|0)$/)) {
+        res.status(400).json(utils.apiResponseData(undefined, 'The propertyId must be a positive integer.')).end();
+        return;
+    }
+
+    var property = new Property(function (conErr) {
+        if (conErr) {
+            res.status(500).json(utils.apiResponseData(undefined, 'Failed to connect to server database.'));
+            res.end();
+            property.end();
+            return;
+        }
+
+        var propertyId = +req.params.propertyId;
+        property.exists(propertyId, function(result) {
+            if (result == null) {
+                res.status(500).json(utils.apiResponseData(undefined, 'Could not retrieve data from database.'));
+            } else {
+                res.status(200).json(utils.apiResponseData(result));
+            }
+        });
+    });
+});
+
+
 router.post('/', function (req, res) {
     var property = new Property(function (conErr) {
         if (conErr) {

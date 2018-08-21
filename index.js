@@ -1,6 +1,8 @@
 require('dotenv').config();
 var express = require('express');
 var path = require('path');
+var request = require('request');
+var utils = require.main.require('./utils');
 
 var app = express();
 
@@ -29,15 +31,26 @@ app.get('/property/:propertyId', function (req, res, next) {
         next();
         return;
     }
-    res.render('pages/property', {
-        cssLoads: [
-            '/css/galleria.classic.css',
-            '/css/style.property.css'
-        ],
-        jsLoads: [
-            '/js/galleria.js'
-        ],
-        propertyId: req.params.propertyId
+    request(utils.url('/api/property/exists/' + req.params.propertyId), function (error, response, body) {
+        var result = JSON.parse(body);
+        if (error) {
+            next(err);
+        } else if(result.error) {
+            next(new Error(result.error));
+        } else if (result.data) {
+            res.render('pages/property', {
+                cssLoads: [
+                    '/css/galleria.classic.css',
+                    '/css/style.property.css'
+                ],
+                jsLoads: [
+                    '/js/galleria.js'
+                ],
+                propertyId: req.params.propertyId
+            });
+        } else {
+            next();
+        }
     });
 });
 
