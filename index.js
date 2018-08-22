@@ -21,7 +21,11 @@ app.use('/media', express.static('media'));
 
 app.get('/', function (req, res) {
     //throw 'Erro de teste'; // For 500 error testing
-    res.render('pages/home');
+    res.render('pages/home', {
+        cssLoads: [
+            '/css/style.home.css'
+        ]
+    });
 });
 
 app.use('/api', require('./api/api'));
