@@ -10,10 +10,6 @@ var expressLayouts = require('express-ejs-layouts');
 app.set('view engine', 'ejs');
 app.use(expressLayouts);
 
-app.get('/teste-upload-property-photos', function (req, res) {
-    res.sendFile(path.resolve('test/test-upload-property-photos.html'));
-});
-
 app.use('/css', express.static('views/css'));
 app.use('/js', express.static('views/js'));
 app.use('/images', express.static('views/images'));
@@ -58,9 +54,7 @@ app.get('/property/:propertyId', function (req, res, next) {
     });
 });
 
-app.get('/test/photo-gallery', function (req, res) {
-    res.sendFile(path.resolve('test/photo-gallery-test.html'));
-});
+app.use('/test/jwt', require('./test/test-jwt'));
 
 // Handle 404 Not Found
 app.use(function (req, res, next) {
