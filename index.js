@@ -54,8 +54,6 @@ app.get('/property/:propertyId', function (req, res, next) {
     });
 });
 
-app.use('/test/jwt', require('./test/test-jwt'));
-
 // Handle 404 Not Found
 app.use(function (req, res, next) {
     res.status(404).sendFile(path.resolve('views/error-pages/404.html'));
