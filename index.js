@@ -54,6 +54,9 @@ app.get('/property/:propertyId', function (req, res, next) {
     });
 });
 
+// Admin panel
+app.use('/admin', require('./admin/admin'));
+
 // Handle 404 Not Found
 app.use(function (req, res, next) {
     res.status(404).sendFile(path.resolve('views/error-pages/404.html'));
