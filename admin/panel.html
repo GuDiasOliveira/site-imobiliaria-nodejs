@@ -51,10 +51,12 @@
         function updateData() {
             // Get properties list
             $.get("/api/property", function(data) {
-                console.log('Properties API http get data');
-                console.log(data);
                 vue.data.properties = data.data;
-            });
+            }); 
+        }
+
+        function eventClickEditProperty(event) {
+            $(this).closest('.property-item').find('.edit-property').slideToggle();
         }
     </script>
 
@@ -85,8 +87,15 @@
         <div v-else>
             <!-- Admin panel page content -->
             <h2>Todos os imóveis</h2>
-            <ul class="list-group">
-                <li class="list-group-item" v-for="property in properties">{{property.name}}</li>
+            <ul class="property-list list-group">
+                <li class="property-item list-group-item" v-bind:data-id="property.property_id" v-for="property in properties">
+                    <div class="view-property">
+                        {{property.name}}
+                    </div>
+                    <div class="edit-property">
+                        <h5>Meu teste</h5>
+                    </div>
+                </li>
             </ul>
         </div>
     </div>
@@ -120,6 +129,11 @@
         vue.updated = function() {
             // Fade login error message
             $('.login-form .login-error').delay(3000).fadeOut(2000);
+
+            $('.property-item .edit-property').hide();
+            $('.property-item .view-property')
+                .off('click', eventClickEditProperty)
+                .click(eventClickEditProperty);
         };
     </script>
 
