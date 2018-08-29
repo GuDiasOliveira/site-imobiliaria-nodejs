@@ -10,6 +10,24 @@
     <link rel="stylesheet" href="/css/bootstrap/bootstrap.min.css">
 
     <style>
+        .page-content {
+            margin: 30px auto;
+        }
+
+        .page-content header h1 {
+            width: 100%;
+        }
+
+        .login-form {
+            max-width: 450px;
+            width: 100%;
+            padding: 20px;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translateY(-50%) translateX(-50%);
+        }
+
         .login-form .login-error {
             color: red;
         }
@@ -36,7 +54,10 @@
 
 <body>
     <!-- Page content -->
-    <div class="page-content" id="page-content">
+    <div class="page-content container" id="page-content">
+        <header>
+            <h1 class="text-center">Painel do administrador</h1>
+        </header>
         <div class="login-form" v-if="!accessToken">
             <form id="form-login" action="/api/login" method="POST" enctype="application/x-www-form-urlencoded">
                 <div class="form-group">
@@ -48,10 +69,11 @@
                     <input type="password" name="password" class="form-control" id="login-password" placeholder="Senha">
                 </div>
                 <p class="login-error" v-if="errorLogin">{{errorLogin}}</p>
-                <button type="submit" class="btn btn-primary">Submit</button>
+                <button type="submit" class="btn btn-primary">Login</button>
             </form>
         </div>
         <div v-else>
+            <!-- Admin panel page content -->
             Token de acesso: <strong>{{accessToken}}</strong>
         </div>
     </div>
@@ -69,6 +91,7 @@
                     },
                     error: function(error) {
                         vue.data.accessToken = null;
+                        $('.login-form .login-error').show().delay(3000).fadeOut(2000);
                         if (error.status == 401) {
                             vue.data.errorLogin = 'Usuário e senha incorretos!';
                         } else {
@@ -79,6 +102,10 @@
                 event.preventDefault();
             });
         });
+
+        vue.updated = function() {
+            $('.login-form .login-error').delay(3000).fadeOut(2000);
+        };
     </script>
 
     <!-- Vue app -->
