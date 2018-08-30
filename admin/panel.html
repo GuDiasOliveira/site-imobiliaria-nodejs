@@ -83,6 +83,35 @@
                 decimal:','
             });
         }
+
+        function submitEditProperty() {
+            // Getting form data
+            var formData = $(this).serializeArray();
+            // Adapting form data
+            formData.forEach(function(fdata) {
+                if (fdata.name == 'price') {
+                    fdata.value = fdata.value.replace(/\./g, '').replace(/,/g, '.');
+                }
+            });
+            // Submitting edit property request
+            $.ajax({
+                type: $(this).attr('method'),
+                url: $(this).attr('action'),
+                headers: {
+                    Authorization: vue.data.accessToken
+                },
+                data: $.param(formData),
+                success: function (data) {
+                    alert('Editado com sucesso');
+                    updateData();
+                },
+                error: function(error) {
+                    alert('Falha ao editar');
+                    console.error('Falha ao editar imóvel');
+                    console.error(error);
+                }
+            });
+        }
     </script>
 
     <title>Painel de administração da imobiliária do Gustavo Dias</title>
@@ -125,7 +154,7 @@
                                 <div class="col-md-8">
                                     <h3>Dados cadastrais</h3>
                                     <!-- Edit property form -->
-                                    <form action="/api/property" method="PUT">
+                                    <form v-bind:action="'/api/property/' + property.property_id" method="PUT" onsubmit="submitEditProperty.bind(this)(); return false;">
                                         <div class="row">
                                             <!-- Property name -->
                                             <div class="form-group col-md-8">
@@ -198,6 +227,7 @@
 
     <script>
         $(document).ready(function () {
+            // Submit form // Login
             $('.login-form form').submit(function (event) {
                 $.ajax({
                     type: $(this).attr('method'),
