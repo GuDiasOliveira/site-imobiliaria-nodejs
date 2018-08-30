@@ -31,6 +31,26 @@
         .login-form .login-error {
             color: red;
         }
+
+        .property-item {
+            padding: .40rem 1.25rem;
+        }
+
+        .property-item .view-property {
+            padding: 10px;
+            cursor: pointer;
+        }
+
+        .row-separator {
+            padding: 0;
+            margin: 10px 10px;
+            height: 1px;
+            background-color: rgba(0,0,0,.125);
+        }
+
+        .edit-property .edit-property-content {
+            margin: 0 10px;
+        }
     </style>
 
     <script src="/js/bootstrap/bootstrap.min.js"></script>
@@ -93,7 +113,58 @@
                         {{property.name}}
                     </div>
                     <div class="edit-property">
-                        <h5>Meu teste</h5>
+                        <!-- Edit property screen -->
+                        <div class="row-separator"></div>
+                        <div class="edit-property-content">
+                            <!-- Edit property form -->
+                            <form action="/api/property" method="PUT">
+                                <!-- Property name -->
+                                <div class="form-group">
+                                    <label for="name">Nome</label>
+                                    <input type="text" name="name" class="form-control" id="name" placeholder="Nome do imóvel">
+                                </div>
+                                <!-- Property city and state -->
+                                <div class="form-group">
+                                    <label for="city-state">Cidade - Estado</label>
+                                    <input type="text" name="cityState" class="form-control" id="city-state" placeholder="Cidade e estado do imóvel">
+                                </div>
+                                <!-- Property type -->
+                                <div class="form-group">
+                                    <label for="type">Tipo</label>
+                                    <input type="text" name="type" class="form-control" id="type" placeholder="Tipo de imóvel">
+                                </div>
+                                <!-- Property price -->
+                                <div class="form-group">
+                                    <label for="name">Preço</label>
+                                    <div class="input-group">
+                                        <div class="input-group-prepend">
+                                            <span class="input-group-text">R$</span>
+                                        </div>
+                                        <input type="number" name="price" value="1000" min="0" step="0.01" data-number-to-fixed="2" data-number-stepfactor="100" class="form-control" />
+                                    </div>
+                                </div>
+                                <!-- Property total area -->
+                                <div class="form-group">
+                                    <label for="total-area">Área total</label>
+                                    <div class="input-group">
+                                        <input type="number" name="totalArea" class="form-control" id="total-area" placeholder="Área total do imóvel">
+                                        <div class="input-group-append">
+                                            <span class="input-group-text">m²</span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!-- Property useful area -->
+                                <div class="form-group">
+                                    <label for="useful-area">Área útil</label>
+                                    <input type="number" name="usefulArea" class="form-control" id="useful-area" placeholder="Área útil do imóvel">
+                                </div>
+                                <!-- Property rooms -->
+                                <div class="form-group">
+                                    <label for="rooms">Quartos</label>
+                                    <input type="number" name="rooms" class="form-control" id="rooms" placeholder="Quantidade de quartos">
+                                </div>
+                            </form>
+                        </div>
                     </div>
                 </li>
             </ul>
