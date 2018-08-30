@@ -19,8 +19,10 @@ Property.prototype.insert = function(property, callback) {
 
 
 Property.prototype.update = function(property, callback) {
-    var sql = "UPDATE TABLE property SET ?";
-    this.con.query(sql, property, function(err, result) {
+    var propertyId = property.property_id;
+    delete property.property_id;
+    var sql = "UPDATE property SET ? WHERE ?";
+    this.con.query(sql, [property, {property_id: propertyId}], function(err, result) {
         callback(err);
     });
 };

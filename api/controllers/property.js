@@ -174,6 +174,35 @@ router.post('/', function (req, res) {
 });
 
 
+router.put('/:propertyId', function(req, res) {
+    if (!req.params.propertyId.match(/^([1-9][0-9]*|0)$/)) {
+        res.status(400).json(utils.apiResponseData(undefined, 'The propertyId must be a positive integer.')).end();
+        return;
+    }
+
+    var property = new Property(function (conErr) {
+        if (conErr) {
+            res.status(500).json(utils.apiResponseData(undefined, 'Failed to connect to server database.'));
+            res.end();
+            property.end();
+            return;
+        }
+        
+        var propertyId = +req.params.propertyId;
+        var propertyData = req.body;
+        propertyData.property_id = propertyId;
+        property.update(propertyData, function(err) {
+            if (err) {
+                res.status(500).json(utils.apiResponseData(undefined, 'Could not update data into database.'));
+            } else {
+                res.status(200).json(utils.apiResponseData());
+            }
+            property.end();
+        });
+    });
+});
+
+
 module.exports = function (app) {
     return router;
 };
