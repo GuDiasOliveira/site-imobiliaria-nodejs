@@ -65,6 +65,10 @@ router.use('/', function(req, res, next) {
     }
 });
 
+// Check valid token
+router.post('/verifyToken', function (req, res) {
+    res.json(utils.apiResponseData('Ok!'));
+});
 
 var consign = require('consign');
 var controllers = {};

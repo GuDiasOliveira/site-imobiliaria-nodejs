@@ -74,12 +74,40 @@
             var token = $.cookie('accessToken');
             if (!token)
                 return;
-            // Automatic saved login
-            vue.data.errorLogin = ''
-            vue.data.accessToken = token;
-            $.cookie('accessToken', token);
-            updateData();
+            $.ajax({
+                type: 'POST',
+                url: '/api/verifyToken',
+                headers: {
+                    Authorization: token
+                },
+                success: function(data) {
+                    // Automatic saved login
+                    vue.data.errorLogin = '';
+                    vue.data.accessToken = token;
+                    $.cookie('accessToken', token);
+                    updateData();
+                },
+                error: function (error) {
+                    console.error('Could not automaticly login on admin panel');
+                    console.error(error);
+                    $.removeCookie('accessToken');
+                }
+            });
         });
+
+        function checkToken() {
+            $.ajax({
+                type: 'POST',
+                url: '/api/verifyToken',
+                headers: {
+                    Authorization: vue.data.accessToken
+                },
+                error: function (error) {
+                    vue.data.accessToken = '';
+                    $.removeCookie('accessToken');
+                }
+            });
+        }
 
         function updateData() {
             // Get properties list
@@ -94,6 +122,7 @@
                 thousands:'.',
                 decimal:','
             });
+            checkToken();
         }
 
         function submitEditProperty() {
@@ -238,8 +267,9 @@
     </div>
 
     <script>
-        $(document).ready(function () {
-            // Submit form // Login
+        // Submit form // Login
+        function setSubmitLoginFormEvent() {
+            $('.login-form form').off('submit', '**');
             $('.login-form form').submit(function (event) {
                 $.ajax({
                     type: $(this).attr('method'),
@@ -264,6 +294,9 @@
                 });
                 event.preventDefault();
             });
+        }
+        $(document).ready(function () {
+            setSubmitLoginFormEvent();
         });
 
         vue.updated = function() {
@@ -274,6 +307,8 @@
             $('.property-item .view-property')
                 .off('click', eventClickEditProperty)
                 .click(eventClickEditProperty);
+            
+            setSubmitLoginFormEvent();
         };
     </script>
 
