@@ -60,6 +60,10 @@
     <script src="/js/jquery.cookie.js"></script>
 
     <script>
+        Number.prototype.toBrazilCurrency = function () {
+            return this.toFixed(2).replace(/(\d)(?=(\d{3})+(?!\d))/g, "$1.").replace(/\.(\d{2})$/g, ',$1');
+        }
+
         vue = {
             el: '#page-content',
         };
@@ -200,19 +204,19 @@
                                             <!-- Property name -->
                                             <div class="form-group col-md-8">
                                                 <label for="name">Nome</label>
-                                                <input type="text" name="name" class="form-control" id="name" placeholder="Nome do imóvel">
+                                                <input type="text" name="name" v-bind:value="property.name" class="form-control" id="name" placeholder="Nome do imóvel">
                                             </div>
                                             <!-- Property city and state -->
                                             <div class="form-group col-md-4">
                                                 <label for="city-state">Cidade - Estado</label>
-                                                <input type="text" name="cityState" class="form-control" id="city-state" placeholder="Cidade e estado do imóvel">
+                                                <input type="text" name="city_state" v-bind:value="property.city_state" class="form-control" id="city-state" placeholder="Cidade e estado do imóvel">
                                             </div>
                                         </div>
                                         <div class="row">
                                             <!-- Property type -->
                                             <div class="form-group col-md-6">
                                                 <label for="type">Tipo</label>
-                                                <input type="text" name="type" class="form-control" id="type" placeholder="Tipo de imóvel">
+                                                <input type="text" name="type" v-bind:value="property.type" class="form-control" id="type" placeholder="Tipo de imóvel">
                                             </div>
                                             <!-- Property price -->
                                             <div class="form-group col-md-6">
@@ -221,7 +225,7 @@
                                                     <div class="input-group-prepend">
                                                         <span class="input-group-text">R$</span>
                                                     </div>
-                                                    <input type="text" name="price" class="form-control property-price" value="1000" />
+                                                    <input type="text" name="price" v-bind:value="property.price.toBrazilCurrency()" class="form-control property-price" />
                                                 </div>
                                             </div>
                                         </div>
@@ -230,7 +234,7 @@
                                             <div class="form-group col-md-4">
                                                 <label for="total-area">Área total</label>
                                                 <div class="input-group">
-                                                    <input type="number" name="totalArea" class="form-control" id="total-area" placeholder="Área total do imóvel">
+                                                    <input type="number" name="total_area" v-bind:value="property.total_area" class="form-control" id="total-area" placeholder="Área total do imóvel">
                                                     <div class="input-group-append">
                                                         <span class="input-group-text">m²</span>
                                                     </div>
@@ -240,7 +244,7 @@
                                             <div class="form-group col-md-4">
                                                 <label for="useful-area">Área útil</label>
                                                 <div class="input-group">
-                                                    <input type="number" name="usefulArea" class="form-control" id="useful-area" placeholder="Área útil do imóvel">
+                                                    <input type="number" name="useful_area" v-bind:value="property.useful_area" class="form-control" id="useful-area" placeholder="Área útil do imóvel">
                                                     <div class="input-group-append">
                                                         <span class="input-group-text">m²</span>
                                                     </div>
@@ -249,7 +253,7 @@
                                             <!-- Property rooms -->
                                             <div class="form-group col-md-4">
                                                 <label for="rooms">Quartos</label>
-                                                <input type="number" name="rooms" class="form-control" id="rooms" placeholder="Quantidade de quartos">
+                                                <input type="number" name="rooms" v-bind:value="property.rooms" class="form-control" id="rooms" placeholder="Quantidade de quartos">
                                             </div>
                                         </div>
                                         <button type="submit" class="btn btn-primary">Salvar</button>
