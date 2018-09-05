@@ -57,6 +57,7 @@
     <script src="/js/vue.js"></script>
     <script src="/js/jquery.js"></script>
     <script src="/js/jquery.maskMoney.js"></script>
+    <script src="/js/jquery.cookie.js"></script>
 
     <script>
         vue = {
@@ -68,6 +69,17 @@
             accessToken: '',
             properties: []
         };
+
+        $(document).ready(function () {
+            var token = $.cookie('accessToken');
+            if (!token)
+                return;
+            // Automatic saved login
+            vue.data.errorLogin = ''
+            vue.data.accessToken = token;
+            $.cookie('accessToken', token);
+            updateData();
+        });
 
         function updateData() {
             // Get properties list
@@ -236,10 +248,12 @@
                     success: function (data) {
                         vue.data.errorLogin = ''
                         vue.data.accessToken = data.data.token;
+                        $.cookie('accessToken', data.data.token);
                         updateData();
                     },
                     error: function(error) {
                         vue.data.accessToken = null;
+                        $.removeCookie('accessToken');
                         $('.login-form .login-error').show().delay(3000).fadeOut(2000);
                         if (error.status == 401) {
                             vue.data.errorLogin = 'Usuário e senha incorretos!';
