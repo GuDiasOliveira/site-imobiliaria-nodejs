@@ -8,6 +8,7 @@ body {
     background-size: cover;
     background-position-y: center;
     border-radius: 0;
+    margin-bottom: 0;
 }
 
 .page-header-link-to-home:hover {
@@ -24,6 +25,20 @@ body {
     font-size: 60px;
     -webkit-text-stroke-color: #000000;
     -webkit-text-stroke-width: 2px;
+}
+
+.page-navbar {
+    margin-top: 0;
+    margin-bottom: 2rem;
+}
+
+.page-navbar .navbar-nav {
+    margin: 0 30px;
+}
+
+.page-navbar .navbar-nav .nav-item a {
+    padding-right: 20px;
+    padding-left: 20px;
 }
 
 .main {
