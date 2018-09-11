@@ -41,10 +41,22 @@
             cursor: pointer;
         }
 
+        .property-item .view-property .property-thumb {
+            height: 100px;
+            width: 150px;
+        }
+
         .row-separator {
             padding: 0;
             margin: 10px 10px;
             height: 1px;
+            background-color: rgba(0,0,0,.125);
+        }
+
+        .col-separator {
+            padding: 0;
+            margin: 10px 10px;
+            width: 1px;
             background-color: rgba(0,0,0,.125);
         }
 
@@ -189,7 +201,24 @@
             <ul class="property-list list-group">
                 <li class="property-item list-group-item" v-bind:data-id="property.property_id" v-for="property in properties">
                     <div class="view-property">
-                        {{property.name}}
+                        <!-- View property on the list -->
+                        <div class="alert alert-info d-flex">
+                            <img class="property-thumb rounded" v-bind:src="property.thumb_url" v-bind:alt="property.name" />
+                            <span class="col-separator"></span>
+                            <div class="flex-fill">
+                                <div class="property-state-city">{{property.name}}</div>
+                                <div class="property-price text-info font-weight-bold" style="font-size: 25px;">R$ {{property.price.toBrazilCurrency()}}</div>
+                                <div class="d-flex flex-row">
+                                    <div class="property-state-city text-primary" style="margin-right: 70px;">{{property.city_state}}</div>
+                                    <div class="property-type text-danger">{{property.type}}</div>
+                                </div>
+                            </div>
+                            <div class="float-right">
+                                <div class="property-totalArea">{{property.total_area}} m² total</div>
+                                <div class="property-usefulArea">{{property.useful_area}} m² útil</div>
+                                <div class="property-rooms">{{property.rooms}} {{property.rooms == 1 ? 'quarto' : 'quartos'}}</div>
+                            </div>
+                        </div>
                     </div>
                     <div class="edit-property">
                         <!-- Edit property screen -->
